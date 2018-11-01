@@ -73,35 +73,19 @@ class NeuralNetwork {
       }
     }
 
-    for (int i = 1; i < lrs.length /*lrs.length | lastLr */; i++) {
+    for (int i = 1; i < lrs.length; i++) {
       for (int i1 = 0; i1 < lrs[i].length; i1++) {
-        for (int k = 0; k < lrs[i][i1].ws.length; k++) {
-          //float sum = valSum(i - 1);
-          //float avg = sum /((float) lrs[i - 1].length);          
-          lrs[i][i1].ws[k] += rate * lrs[i][i1].eval * lrs[i - 1][k].val// * (avg/lrs[i - 1][k].val * 0.5) 
-            //* lrs[i - 1][k].val
-            ;//* lrs[i][i1].derivativeA(lrs[i][i1].val);
-
-          //lrs[i][i1].ws[k] = funcWS(lrs[i][i1].ws[k]);
+        for (int k = 0; k < lrs[i][i1].ws.length; k++) {          
+          lrs[i][i1].ws[k] += rate * lrs[i][i1].eval * lrs[i - 1][k].val;
         }
-        lrs[i][i1].wb += /* rate * */ rate * lrs[i][i1].eval * lrs[i][i1].bias; //* lrs[i][i1].derivativeA(lrs[i][i1].bias);
-        
-        //lrs[i][i1].wb = funcWS(lrs[i][i1].wb);
+        lrs[i][i1].wb += rate * lrs[i][i1].eval * lrs[i][i1].bias;
       }
     }
-  }
-
-  private float funcWS(float s) {
-    if (s < 0)
-      return 0;
-    else
-      return s/* 0 | s */;
   }
 
   float valSum(int i) {
     float sum = 0.0;
     for (int i1 = 0; i1 < lrs[i].length; i1++) {
-      //if (lrs[i][i1].val != Float.NaN)
       sum += lrs[i][i1].val;
       println(sum);
     }
